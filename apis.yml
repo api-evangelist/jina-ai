@@ -11,9 +11,9 @@ image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
   - Embeddings
-  - Search
-  - Reranking
   - Machine Learning
+  - Reranking
+  - Search
 created: '2025-02-06'
 modified: '2026-03-16'
 url: >-
@@ -28,8 +28,8 @@ apis:
     humanURL: https://jina.ai/embeddings/
     tags:
       - Embeddings
-      - Text
       - Multimodal
+      - Text
     properties:
       - type: Documentation
         url: https://docs.jina.ai/
@@ -40,9 +40,9 @@ apis:
       Also supports search-based reading via s.jina.ai.
     humanURL: https://jina.ai/reader/
     tags:
-      - Web Reading
-      - LLM
       - Content Extraction
+      - LLM
+      - Web Reading
     properties:
       - type: Documentation
         url: https://jina.ai/reader/
@@ -53,9 +53,9 @@ apis:
       to improve the quality of retrieved documents.
     humanURL: https://jina.ai/reranker/
     tags:
+      - Relevance
       - Reranking
       - Search
-      - Relevance
     properties:
       - type: Documentation
         url: https://docs.jina.ai/
