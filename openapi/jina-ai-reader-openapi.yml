@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Jina AI Reader API
+  description: >-
+    The Reader API converts any URL or web search query into LLM-friendly
+    output. Prefix any URL with r.jina.ai to extract clean markdown, or use
+    s.jina.ai to perform a web search and read top results.
+  version: '1.0'
+  contact:
+    name: Jina AI
+    url: https://jina.ai
+servers:
+  - url: https://r.jina.ai
+    description: Reader API
+  - url: https://s.jina.ai
+    description: Search API
+  - url: https://eu.r.jina.ai
+    description: EU Reader API
+  - url: https://eu.s.jina.ai
+    description: EU Search API
+security:
+  - BearerAuth: []
+tags:
+  - name: Reader
+    description: URL-to-markdown extraction
+  - name: Search
+    description: Web search and retrieval
+paths:
+  /:
+    post:
+      tags:
+        - Reader
+      summary: Read a URL as LLM-friendly content
+      description: >-
+        Submit a URL to extract clean, structured content suitable for LLM
+        consumption. Output format is controlled by the X-Return-Format header.
+      operationId: readUrl
+      parameters:
+        - name: X-Engine
+          in: header
+          schema:
+            type: string
+            enum: [browser, direct, cf-browser-rendering]
+          description: Rendering engine
+        - name: X-Return-Format
+          in: header
+          schema:
+            type: string
+            enum: [markdown, html, text, screenshot, pageshot]
+          description: Desired output format
+        - name: X-With-Links-Summary
+          in: header
+          schema:
+            type: boolean
+        - name: X-With-Images-Summary
+          in: header
+          schema:
+            type: boolean
+        - name: X-With-Generated-Alt
+          in: header
+          schema:
+            type: boolean
+        - name: X-Timeout
+          in: header
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReaderRequest'
+      responses:
+        '200':
+          description: Content extracted successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReaderResponse'
+        '401':
+          description: Unauthorized
+  /{url}:
+    get:
+      tags:
+        - Reader
+      summary: Read a URL via path
+      description: Convenience GET form that accepts the target URL as a path segment.
+      operationId: readUrlByPath
+      parameters:
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Target URL to extract
+      responses:
+        '200':
+          description: Extracted content
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    ReaderRequest:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com
+        viewport:
+          type: object
+          properties:
+            width:
+              type: integer
+            height:
+              type: integer
+        injectPageScript:
+          type: string
+    ReaderResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: integer
+        data:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            url:
+              type: string
+            content:
+              type: string
+            usage:
+              type: object
+              properties:
+                tokens:
+                  type: integer

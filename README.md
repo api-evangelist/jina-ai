@@ -16,7 +16,7 @@ Jina AI provides Search Foundation APIs for AI-powered applications, offering em
 ## Timestamps
 
 - **Created:** 2025-02-06 
-- **Modified:** 2026-03-16 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -24,6 +24,8 @@ Jina AI provides Search Foundation APIs for AI-powered applications, offering em
 Generate high-quality embeddings from text, images, or code using Jina AI's state-of-the-art embedding models.
 
 **Human URL:** [https://jina.ai/embeddings/](https://jina.ai/embeddings/)
+
+**Base URL:** https://api.jina.ai/v1
 
 
 #### Tags:
@@ -33,11 +35,14 @@ Generate high-quality embeddings from text, images, or code using Jina AI's stat
 #### Properties
 
 - [Documentation](https://docs.jina.ai/)
+- [OpenAPI](openapi/jina-ai-embeddings-openapi.yml)
 
 ### Jina AI Reader API
 Convert a URL to LLM-friendly input by simply adding r.jina.ai in front. Also supports search-based reading via s.jina.ai.
 
 **Human URL:** [https://jina.ai/reader/](https://jina.ai/reader/)
+
+**Base URL:** https://r.jina.ai
 
 
 #### Tags:
@@ -47,11 +52,14 @@ Convert a URL to LLM-friendly input by simply adding r.jina.ai in front. Also su
 #### Properties
 
 - [Documentation](https://jina.ai/reader/)
+- [OpenAPI](openapi/jina-ai-reader-openapi.yml)
 
 ### Jina AI Reranker API
 Re-rank search results by relevance using Jina AI's reranker models to improve the quality of retrieved documents.
 
 **Human URL:** [https://jina.ai/reranker/](https://jina.ai/reranker/)
+
+**Base URL:** https://api.jina.ai/v1
 
 
 #### Tags:
@@ -61,6 +69,7 @@ Re-rank search results by relevance using Jina AI's reranker models to improve t
 #### Properties
 
 - [Documentation](https://docs.jina.ai/)
+- [OpenAPI](openapi/jina-ai-reranker-openapi.yml)
 
 ## Common Properties
 
