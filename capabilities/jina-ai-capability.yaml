@@ -1,0 +1,276 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Jina AI Embeddings API
+  description: Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art
+    embedding models. Supports synchronous embedding requests and batch jobs for large workloads.
+  tags:
+  - Jina
+  - Ai
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: jina-ai
+    baseUri: https://api.jina.ai/v1
+    description: Jina AI Embeddings API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{JINA_AI_TOKEN}}'
+    resources:
+    - name: embeddings
+      path: /embeddings
+      operations:
+      - name: createembeddings
+        method: POST
+        description: Create embeddings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: batch-embeddings
+      path: /batch/embeddings
+      operations:
+      - name: submitbatchembeddings
+        method: POST
+        description: Submit batch embedding job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: batch-batch-id
+      path: /batch/{batch_id}
+      operations:
+      - name: getbatchjob
+        method: GET
+        description: Get batch job status
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: cancelbatchjob
+        method: DELETE
+        description: Cancel batch job
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: batch-batch-id-output
+      path: /batch/{batch_id}/output
+      operations:
+      - name: getbatchoutput
+        method: GET
+        description: Download batch job output
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: batch-batch-id-errors
+      path: /batch/{batch_id}/errors
+      operations:
+      - name: getbatcherrors
+        method: GET
+        description: Retrieve batch job errors
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: jina-ai-rest
+    description: REST adapter for Jina AI Embeddings API.
+    resources:
+    - path: /embeddings
+      name: createembeddings
+      operations:
+      - method: POST
+        name: createembeddings
+        description: Create embeddings
+        call: jina-ai.createembeddings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /batch/embeddings
+      name: submitbatchembeddings
+      operations:
+      - method: POST
+        name: submitbatchembeddings
+        description: Submit batch embedding job
+        call: jina-ai.submitbatchembeddings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /batch/{batch_id}
+      name: getbatchjob
+      operations:
+      - method: GET
+        name: getbatchjob
+        description: Get batch job status
+        call: jina-ai.getbatchjob
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /batch/{batch_id}
+      name: cancelbatchjob
+      operations:
+      - method: DELETE
+        name: cancelbatchjob
+        description: Cancel batch job
+        call: jina-ai.cancelbatchjob
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /batch/{batch_id}/output
+      name: getbatchoutput
+      operations:
+      - method: GET
+        name: getbatchoutput
+        description: Download batch job output
+        call: jina-ai.getbatchoutput
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /batch/{batch_id}/errors
+      name: getbatcherrors
+      operations:
+      - method: GET
+        name: getbatcherrors
+        description: Retrieve batch job errors
+        call: jina-ai.getbatcherrors
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: jina-ai-mcp
+    transport: http
+    description: MCP adapter for Jina AI Embeddings API for AI agent use.
+    tools:
+    - name: createembeddings
+      description: Create embeddings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jina-ai.createembeddings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: submitbatchembeddings
+      description: Submit batch embedding job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jina-ai.submitbatchembeddings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbatchjob
+      description: Get batch job status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jina-ai.getbatchjob
+      with:
+        batch_id: tools.batch_id
+      inputParameters:
+      - name: batch_id
+        type: string
+        description: batch_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancelbatchjob
+      description: Cancel batch job
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jina-ai.cancelbatchjob
+      with:
+        batch_id: tools.batch_id
+      inputParameters:
+      - name: batch_id
+        type: string
+        description: batch_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbatchoutput
+      description: Download batch job output
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jina-ai.getbatchoutput
+      with:
+        batch_id: tools.batch_id
+      inputParameters:
+      - name: batch_id
+        type: string
+        description: batch_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbatcherrors
+      description: Retrieve batch job errors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jina-ai.getbatcherrors
+      with:
+        batch_id: tools.batch_id
+      inputParameters:
+      - name: batch_id
+        type: string
+        description: batch_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    JINA_AI_TOKEN: JINA_AI_TOKEN
