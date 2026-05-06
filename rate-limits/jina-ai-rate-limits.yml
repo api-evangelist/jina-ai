@@ -4,96 +4,81 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Jina AI
 providerId: jina-ai
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Rate Limiting
   - AI
   - Embeddings
-  - Machine Learning
-  - Reranking
-  - Search
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Jina AI API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - LLM
+description: Jina AI applies per-API-key rate limits across three tiers (Free, Paid, Premium). Limits
+  are enforced as RPM (requests per minute), TPM (tokens per minute), and concurrent in-flight requests
+  and apply uniformly across all Search Foundation services (Embeddings, Reranker, Reader, Classifier,
+  Segmenter, DeepSearch). Tier is determined by token balance / billing status on the key.
+sources:
+  - https://jina.ai/embeddings/
+  - https://jina.ai/api-dashboard/
+  - https://api.jina.ai/redoc
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  quotaExceeded: 402
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Jina AI Embeddings API
-      - Jina AI Reader API
-      - Jina AI Reranker API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Jina AI Embeddings API
-      - Jina AI Reader API
-      - Jina AI Reranker API
-  - tier: professional
-    name: Professional Tier Default
+  - name: Free API Key — RPM
     scope: api-key
     metric: requests_per_minute
     limit: 100
-    burst: 200
     timeFrame: minute
-    applies:
-      - Jina AI Embeddings API
-      - Jina AI Reader API
-      - Jina AI Reranker API
-  - tier: professional
-    name: Professional Tier Monthly Quota
+  - name: Free API Key — TPM
     scope: api-key
-    metric: requests_per_month
+    metric: tokens_per_minute
     limit: 100000
-    timeFrame: month
-    applies:
-      - Jina AI Embeddings API
-      - Jina AI Reader API
-      - Jina AI Reranker API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
     timeFrame: minute
-    applies:
-      - Jina AI Embeddings API
-      - Jina AI Reader API
-      - Jina AI Reranker API
+  - name: Free API Key — concurrency
+    scope: api-key
+    metric: concurrent_requests
+    limit: 2
+  - name: Paid API Key — RPM
+    scope: api-key
+    metric: requests_per_minute
+    limit: 500
+    timeFrame: minute
+  - name: Paid API Key — TPM
+    scope: api-key
+    metric: tokens_per_minute
+    limit: 2000000
+    timeFrame: minute
+  - name: Paid API Key — concurrency
+    scope: api-key
+    metric: concurrent_requests
+    limit: 50
+  - name: Premium API Key — RPM
+    scope: api-key
+    metric: requests_per_minute
+    limit: 5000
+    timeFrame: minute
+  - name: Premium API Key — TPM
+    scope: api-key
+    metric: tokens_per_minute
+    limit: 50000000
+    timeFrame: minute
+  - name: Premium API Key — concurrency
+    scope: api-key
+    metric: concurrent_requests
+    limit: 500
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Tier upgrade
+    description: Tier (Free / Paid / Premium) is determined by token balance / billing status on the
+      API key; topping up tokens promotes the key to a higher tier with higher RPM, TPM, and concurrency.
+  - name: Backoff
+    description: Honor Retry-After on 429 and back off exponentially with jitter.
+  - name: Token exhaustion
+    description: When the token balance reaches zero the API returns 402 Payment Required; top up
+      via Stripe in the API Dashboard.
+  - name: Shared across services
+    description: Rate-limit and concurrency caps apply across all Jina services on the same key, not
+      per-endpoint.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  - FN: API Evangelist
+    email: info@apievangelist.com
