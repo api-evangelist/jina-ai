@@ -75,11 +75,11 @@ common:
     url: https://jina.ai/api-dashboard/
   - type: Documentation
     url: https://docs.jina.ai/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.jina.ai/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/jina-ai
-  - type: Sign Up
+  - type: SignUp
     url: https://jina.ai/api-dashboard/
 maintainers:
   - FN: Kin Lane
