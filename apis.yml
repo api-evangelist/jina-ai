@@ -15,7 +15,7 @@ tags:
   - Reranking
   - Search
 created: '2025-02-06'
-modified: '2026-04-28'
+modified: '2026-05-19'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -81,6 +81,9 @@ common:
     url: https://github.com/jina-ai
   - type: SignUp
     url: https://jina.ai/api-dashboard/
+  - name: MCP Server
+    url: https://github.com/jina-ai/MCP
+    type: MCPServer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
