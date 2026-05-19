@@ -1,0 +1,237 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Jina AI Embeddings API — Batch
+  description: 'Jina AI Embeddings API — Batch. 5 operations. Lead operation: Submit batch embedding job. Self-contained Naftiko
+    capability covering one Jina Ai business surface.'
+  tags:
+  - Jina Ai
+  - Batch
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    JINA_AI_API_KEY: JINA_AI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: embeddings-batch
+    baseUri: https://api.jina.ai/v1
+    description: Jina AI Embeddings API — Batch business capability. Self-contained, no shared references.
+    resources:
+    - name: batch-embeddings
+      path: /batch/embeddings
+      operations:
+      - name: submitbatchembeddings
+        method: POST
+        description: Submit batch embedding job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: batch-batch_id
+      path: /batch/{batch_id}
+      operations:
+      - name: getbatchjob
+        method: GET
+        description: Get batch job status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+      - name: cancelbatchjob
+        method: DELETE
+        description: Cancel batch job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+    - name: batch-batch_id-errors
+      path: /batch/{batch_id}/errors
+      operations:
+      - name: getbatcherrors
+        method: GET
+        description: Retrieve batch job errors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+    - name: batch-batch_id-output
+      path: /batch/{batch_id}/output
+      operations:
+      - name: getbatchoutput
+        method: GET
+        description: Download batch job output
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: batch_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.JINA_AI_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: embeddings-batch-rest
+    port: 8080
+    description: REST adapter for Jina AI Embeddings API — Batch. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/batch/embeddings
+      name: batch-embeddings
+      description: REST surface for batch-embeddings.
+      operations:
+      - method: POST
+        name: submitbatchembeddings
+        description: Submit batch embedding job
+        call: embeddings-batch.submitbatchembeddings
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/batch/{batch-id}
+      name: batch-batch-id
+      description: REST surface for batch-batch_id.
+      operations:
+      - method: GET
+        name: getbatchjob
+        description: Get batch job status
+        call: embeddings-batch.getbatchjob
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelbatchjob
+        description: Cancel batch job
+        call: embeddings-batch.cancelbatchjob
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/batch/{batch-id}/errors
+      name: batch-batch-id-errors
+      description: REST surface for batch-batch_id-errors.
+      operations:
+      - method: GET
+        name: getbatcherrors
+        description: Retrieve batch job errors
+        call: embeddings-batch.getbatcherrors
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/batch/{batch-id}/output
+      name: batch-batch-id-output
+      description: REST surface for batch-batch_id-output.
+      operations:
+      - method: GET
+        name: getbatchoutput
+        description: Download batch job output
+        call: embeddings-batch.getbatchoutput
+        with:
+          batch_id: rest.batch_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: embeddings-batch-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Jina AI Embeddings API — Batch. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: submit-batch-embedding-job
+      description: Submit batch embedding job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: embeddings-batch.submitbatchembeddings
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-batch-job-status
+      description: Get batch job status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: embeddings-batch.getbatchjob
+      with:
+        batch_id: tools.batch_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-batch-job
+      description: Cancel batch job
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: embeddings-batch.cancelbatchjob
+      with:
+        batch_id: tools.batch_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-batch-job-errors
+      description: Retrieve batch job errors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: embeddings-batch.getbatcherrors
+      with:
+        batch_id: tools.batch_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-batch-job-output
+      description: Download batch job output
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: embeddings-batch.getbatchoutput
+      with:
+        batch_id: tools.batch_id
+      outputParameters:
+      - type: object
+        mapping: $.
