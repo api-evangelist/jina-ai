@@ -86,6 +86,8 @@ common:
 - name: MCP Server
   url: https://github.com/jina-ai/MCP
   type: MCPServer
+- type: LLMsTxt
+  url: https://docs.jina.ai/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
