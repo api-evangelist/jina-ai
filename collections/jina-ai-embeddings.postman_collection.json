@@ -1,0 +1,692 @@
+{
+  "item": [
+    {
+      "id": "8a833ea2-b671-432b-b251-36c9f197dd09",
+      "name": "Embeddings",
+      "description": {
+        "content": "Synchronous embedding generation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "668eb47a-91a1-4fb6-b5ba-8822ee5aee53",
+          "name": "Create embeddings",
+          "request": {
+            "name": "Create embeddings",
+            "description": {
+              "content": "Generate vector embeddings for one or more text, image, or code inputs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embeddings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41617579-20f7-4140-82a2-39dc4759b019",
+              "name": "Embeddings successfully generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"string\",\n  \"object\": \"list\",\n  \"usage\": {\n    \"total_tokens\": 6719,\n    \"prompt_tokens\": 9360\n  },\n  \"data\": [\n    {\n      \"object\": \"embedding\",\n      \"index\": 1924,\n      \"embedding\": [\n        591.7563535268355,\n        2537.0323761692716\n      ]\n    },\n    {\n      \"object\": \"embedding\",\n      \"index\": 7544,\n      \"embedding\": [\n        9848.504515369885,\n        4627.467113445797\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0e7de7b-3e7f-4921-a7de-cda2bfdcaabd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1515d561-c96d-46b6-a627-1a6d15ccb8d9",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "cae9f771-18d8-41d5-b5df-1ca25ceddb7f",
+      "name": "Batch",
+      "description": {
+        "content": "Asynchronous batch embedding jobs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7678d83e-b343-46e3-8fa3-3557befad252",
+          "name": "Submit batch embedding job",
+          "request": {
+            "name": "Submit batch embedding job",
+            "description": {
+              "content": "Submit a batch job to embed a large set of inputs asynchronously.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "embeddings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input_file_id\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"completion_window\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5ac5f9c-cf9b-4732-ab3a-9c48d8fc2ee9",
+              "name": "Batch job accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input_file_id\": \"<string>\",\n  \"endpoint\": \"/v1/embeddings\",\n  \"completion_window\": \"24h\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"failed\",\n  \"created_at\": 9370,\n  \"endpoint\": \"string\",\n  \"request_counts\": {\n    \"total\": 9541,\n    \"completed\": 4664,\n    \"failed\": 2270\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6c518da-c3e0-4da6-b79f-7a7743ffe7af",
+          "name": "Get batch job status",
+          "request": {
+            "name": "Get batch job status",
+            "description": {},
+            "url": {
+              "path": [
+                "batch",
+                ":batch_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08063a94-437b-467d-8565-690734778605",
+              "name": "Batch job status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"failed\",\n  \"created_at\": 9370,\n  \"endpoint\": \"string\",\n  \"request_counts\": {\n    \"total\": 9541,\n    \"completed\": 4664,\n    \"failed\": 2270\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a880a94-22be-421a-8d1b-5473d489ff93",
+          "name": "Cancel batch job",
+          "request": {
+            "name": "Cancel batch job",
+            "description": {},
+            "url": {
+              "path": [
+                "batch",
+                ":batch_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee5275a3-0c00-4aec-aca2-8eef88eccc73",
+              "name": "Batch job cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "497a4840-2629-4e32-8157-684ec510415e",
+          "name": "Download batch job output",
+          "request": {
+            "name": "Download batch job output",
+            "description": {},
+            "url": {
+              "path": [
+                "batch",
+                ":batch_id",
+                "output"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5955533a-d894-4014-a9f3-f1ac02e59d4f",
+              "name": "Batch output stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    ":batch_id",
+                    "output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ae91ef1-183a-409c-9509-cbc38df515ab",
+          "name": "Retrieve batch job errors",
+          "request": {
+            "name": "Retrieve batch job errors",
+            "description": {},
+            "url": {
+              "path": [
+                "batch",
+                ":batch_id",
+                "errors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c03bfda8-2fe7-46c9-859d-c236c56f51df",
+              "name": "Batch errors stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    ":batch_id",
+                    "errors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.jina.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "75455401-673e-4896-8581-90daabd5443e",
+    "name": "Jina AI Embeddings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.\n\nContact Support:\n Name: Jina AI",
+      "type": "text/plain"
+    }
+  }
+}

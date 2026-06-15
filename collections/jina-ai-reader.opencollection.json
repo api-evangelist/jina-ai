@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jina AI Reader API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reader",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read a URL as LLM-friendly content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://r.jina.ai/",
+            "headers": [
+              {
+                "name": "X-Engine",
+                "value": ""
+              },
+              {
+                "name": "X-Return-Format",
+                "value": ""
+              },
+              {
+                "name": "X-With-Links-Summary",
+                "value": ""
+              },
+              {
+                "name": "X-With-Images-Summary",
+                "value": ""
+              },
+              {
+                "name": "X-With-Generated-Alt",
+                "value": ""
+              },
+              {
+                "name": "X-Timeout",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a URL to extract clean, structured content suitable for LLM consumption. Output format is controlled by the X-Return-Format header."
+        },
+        {
+          "info": {
+            "name": "Read a URL via path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://r.jina.ai/:url",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "path",
+                "description": "Target URL to extract"
+              }
+            ]
+          },
+          "docs": "Convenience GET form that accepts the target URL as a path segment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

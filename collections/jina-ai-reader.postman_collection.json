@@ -1,0 +1,399 @@
+{
+  "item": [
+    {
+      "id": "adc678f4-2b4f-4701-adf1-489d9c8afd78",
+      "name": "Reader",
+      "description": {
+        "content": "URL-to-markdown extraction",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "853bd709-34b0-47f8-bfa2-56234f3159dc",
+          "name": "Read a URL as LLM-friendly content",
+          "request": {
+            "name": "Read a URL as LLM-friendly content",
+            "description": {
+              "content": "Submit a URL to extract clean, structured content suitable for LLM consumption. Output format is controlled by the X-Return-Format header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Rendering engine",
+                "key": "X-Engine",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Desired output format",
+                "key": "X-Return-Format",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "key": "X-With-Links-Summary",
+                "value": "<boolean>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-With-Images-Summary",
+                "value": "<boolean>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-With-Generated-Alt",
+                "value": "<boolean>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Timeout",
+                "value": "<integer>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"viewport\": {\n    \"width\": \"<integer>\",\n    \"height\": \"<integer>\"\n  },\n  \"injectPageScript\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "83334b4f-04f8-4723-8b08-89886fc3788c",
+              "name": "Content extracted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Rendering engine",
+                    "key": "X-Engine",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Desired output format",
+                    "key": "X-Return-Format",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Links-Summary",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Images-Summary",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Generated-Alt",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Timeout",
+                    "value": "<integer>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://example.com\",\n  \"viewport\": {\n    \"width\": \"<integer>\",\n    \"height\": \"<integer>\"\n  },\n  \"injectPageScript\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4652,\n  \"status\": 331,\n  \"data\": {\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"url\": \"string\",\n    \"content\": \"string\",\n    \"usage\": {\n      \"tokens\": 9241\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "debd74b4-9ade-422b-9810-50cc8ada57e6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Rendering engine",
+                    "key": "X-Engine",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Desired output format",
+                    "key": "X-Return-Format",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Links-Summary",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Images-Summary",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-With-Generated-Alt",
+                    "value": "<boolean>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Timeout",
+                    "value": "<integer>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://example.com\",\n  \"viewport\": {\n    \"width\": \"<integer>\",\n    \"height\": \"<integer>\"\n  },\n  \"injectPageScript\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19912499-844f-42fd-9326-b05cd14d91c1",
+          "name": "Read a URL via path",
+          "request": {
+            "name": "Read a URL via path",
+            "description": {
+              "content": "Convenience GET form that accepts the target URL as a path segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "url",
+                  "description": "(Required) Target URL to extract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "373e3c3c-5d14-4a92-a4d8-bcd6ad8b5160",
+              "name": "Extracted content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "url",
+                      "description": "(Required) Target URL to extract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f821c752-8f5b-4fb8-a551-dd9c56a1784b",
+      "name": "Search",
+      "description": {
+        "content": "Web search and retrieval",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://r.jina.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "517b04f1-f3f2-46dd-bdbe-4c14b82e059c",
+    "name": "Jina AI Reader API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reader API converts any URL or web search query into LLM-friendly output. Prefix any URL with r.jina.ai to extract clean markdown, or use s.jina.ai to perform a web search and read top results.\n\nContact Support:\n Name: Jina AI",
+      "type": "text/plain"
+    }
+  }
+}

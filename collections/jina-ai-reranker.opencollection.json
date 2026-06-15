@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jina AI Reranker API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reranker",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rerank documents against a query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.jina.ai/v1/rerank",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Score and reorder a set of candidate documents by relevance to the provided query, optionally returning the top N results."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
