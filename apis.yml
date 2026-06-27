@@ -75,12 +75,12 @@ common:
     url: https://docs.jina.ai/
   - type: GitHubOrganization
     url: https://github.com/jina-ai
-  - type: SignUp
+  - type: Signup
     url: https://jina.ai/api-dashboard/
   - name: MCP Server
     url: https://github.com/jina-ai/MCP
     type: MCPServer
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.jina.ai/llms.txt
 maintainers:
   - FN: Kin Lane
