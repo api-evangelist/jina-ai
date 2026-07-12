@@ -63,6 +63,10 @@ apis:
       - type: OpenAPI
         url: openapi/jina-ai-reranker-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/jina-ai-domain-security.yml
+  - type: Authentication
+    url: authentication/jina-ai-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/jinaai
   - type: Website
