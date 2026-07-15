@@ -63,6 +63,8 @@ apis:
       - type: OpenAPI
         url: openapi/jina-ai-reranker-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/jina-ai-agentic-access.yml
   - type: DomainSecurity
     url: security/jina-ai-domain-security.yml
   - type: Authentication
