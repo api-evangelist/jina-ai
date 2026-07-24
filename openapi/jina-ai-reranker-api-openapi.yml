@@ -1,31 +1,26 @@
 openapi: 3.0.3
 info:
-  title: Jina AI Reranker API
-  description: >-
-    Re-rank a list of candidate documents against a query using Jina AI's
-    reranker models. Returns scored, ordered results to improve the relevance
-    of retrieved documents in RAG and search pipelines.
+  title: Jina AI Embeddings Batch Reranker API
+  description: Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.
   version: '1.0'
   contact:
     name: Jina AI
     url: https://jina.ai
 servers:
-  - url: https://api.jina.ai/v1
-    description: Jina AI production API
+- url: https://api.jina.ai/v1
+  description: Jina AI production API
 security:
-  - BearerAuth: []
+- BearerAuth: []
 tags:
-  - name: Reranker
-    description: Cross-encoder reranking
+- name: Reranker
+  description: Cross-encoder reranking
 paths:
   /rerank:
     post:
       tags:
-        - Reranker
+      - Reranker
       summary: Rerank documents against a query
-      description: >-
-        Score and reorder a set of candidate documents by relevance to the
-        provided query, optionally returning the top N results.
+      description: Score and reorder a set of candidate documents by relevance to the provided query, optionally returning the top N results.
       operationId: rerank
       requestBody:
         required: true
@@ -45,26 +40,21 @@ paths:
         '429':
           description: Rate limit exceeded
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: API Key
   schemas:
     RerankRequest:
       type: object
       required:
-        - model
-        - query
-        - documents
+      - model
+      - query
+      - documents
       properties:
         model:
           type: string
           enum:
-            - jina-reranker-v3
-            - jina-reranker-v2-base-multilingual
-            - jina-colbert-v2
-            - jina-reranker-m0
+          - jina-reranker-v3
+          - jina-reranker-v2-base-multilingual
+          - jina-colbert-v2
+          - jina-reranker-m0
         query:
           type: string
           description: Search query
@@ -73,13 +63,13 @@ components:
           description: Candidate documents to rerank
           items:
             oneOf:
-              - type: string
-              - type: object
-                properties:
-                  text:
-                    type: string
-                  image:
-                    type: string
+            - type: string
+            - type: object
+              properties:
+                text:
+                  type: string
+                image:
+                  type: string
         top_n:
           type: integer
           description: Maximum number of results to return
@@ -111,3 +101,8 @@ components:
                 properties:
                   text:
                     type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

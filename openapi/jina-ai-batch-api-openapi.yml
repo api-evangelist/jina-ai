@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  title: Jina AI Embeddings Batch API
+  description: Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.
+  version: '1.0'
+  contact:
+    name: Jina AI
+    url: https://jina.ai
+servers:
+- url: https://api.jina.ai/v1
+  description: Jina AI production API
+security:
+- BearerAuth: []
+tags:
+- name: Batch
+  description: Asynchronous batch embedding jobs
+paths:
+  /batch/embeddings:
+    post:
+      tags:
+      - Batch
+      summary: Submit batch embedding job
+      description: Submit a batch job to embed a large set of inputs asynchronously.
+      operationId: submitBatchEmbeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchEmbeddingRequest'
+      responses:
+        '202':
+          description: Batch job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJob'
+  /batch/{batch_id}:
+    get:
+      tags:
+      - Batch
+      summary: Get batch job status
+      operationId: getBatchJob
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Batch job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJob'
+    delete:
+      tags:
+      - Batch
+      summary: Cancel batch job
+      operationId: cancelBatchJob
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Batch job cancelled
+  /batch/{batch_id}/output:
+    get:
+      tags:
+      - Batch
+      summary: Download batch job output
+      operationId: getBatchOutput
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Batch output stream
+  /batch/{batch_id}/errors:
+    get:
+      tags:
+      - Batch
+      summary: Retrieve batch job errors
+      operationId: getBatchErrors
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Batch errors stream
+components:
+  schemas:
+    BatchJob:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - validating
+          - in_progress
+          - completed
+          - failed
+          - cancelling
+          - cancelled
+        created_at:
+          type: integer
+        endpoint:
+          type: string
+        request_counts:
+          type: object
+          properties:
+            total:
+              type: integer
+            completed:
+              type: integer
+            failed:
+              type: integer
+    BatchEmbeddingRequest:
+      type: object
+      required:
+      - model
+      - input_file_id
+      properties:
+        model:
+          type: string
+        input_file_id:
+          type: string
+          description: Identifier of an uploaded input file
+        endpoint:
+          type: string
+          example: /v1/embeddings
+        completion_window:
+          type: string
+          example: 24h
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
