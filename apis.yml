@@ -4,9 +4,22 @@ description: >-
   Jina AI provides Search Foundation APIs for AI-powered applications, offering embeddings, reranking, and web reading
   capabilities. Their Reader API converts URLs to LLM-friendly input by simply adding r.jina.ai in front.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/jina-ai.png
 tags:
   - AI
   - Embeddings
@@ -18,50 +31,62 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: jina-ai:embeddings-api
-    name: Jina AI Embeddings API
-    description: Generate high-quality embeddings from text, images, or code using Jina AI's state-of-the-art embedding models.
-    humanURL: https://jina.ai/embeddings/
-    baseURL: https://api.jina.ai/v1
-    tags:
-      - Embeddings
-      - Multimodal
-      - Text
-    properties:
-      - type: Documentation
-        url: https://docs.jina.ai/
-      - type: OpenAPI
-        url: openapi/jina-ai-embeddings-openapi.yml
-  - aid: jina-ai:reader-api
-    name: Jina AI Reader API
-    description: >-
-      Convert a URL to LLM-friendly input by simply adding r.jina.ai in front. Also supports search-based reading via
-      s.jina.ai.
-    humanURL: https://jina.ai/reader/
-    baseURL: https://r.jina.ai
-    tags:
-      - Content Extraction
-      - LLM
-      - Web Reading
-    properties:
-      - type: Documentation
-        url: https://jina.ai/reader/
-      - type: OpenAPI
-        url: openapi/jina-ai-reader-openapi.yml
-  - aid: jina-ai:reranker-api
-    name: Jina AI Reranker API
-    description: Re-rank search results by relevance using Jina AI's reranker models to improve the quality of retrieved documents.
-    humanURL: https://jina.ai/reranker/
-    baseURL: https://api.jina.ai/v1
-    tags:
-      - Relevance
-      - Reranking
-      - Search
-    properties:
-      - type: Documentation
-        url: https://docs.jina.ai/
-      - type: OpenAPI
-        url: openapi/jina-ai-reranker-openapi.yml
+- aid: jina-ai:jina-ai-batch-api
+  name: Jina AI Batch API
+  description: Asynchronous batch embedding jobs
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-batch-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-embeddings-api
+  name: Jina AI Embeddings API
+  description: Synchronous embedding generation
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-reader-api
+  name: Jina AI Reader API
+  description: URL-to-markdown extraction
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Reader
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-reader-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-reranker-api
+  name: Jina AI Reranker API
+  description: Cross-encoder reranking
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Reranker
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-reranker-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
 common:
   - type: AgenticAccess
     url: agentic-access/jina-ai-agentic-access.yml
