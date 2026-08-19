@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "fa34b133-e843-41ea-97c7-0d5721792b1a",
+      "name": "Embeddings",
+      "description": {
+        "content": "Synchronous embedding generation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdcf2635-bb90-458d-bcd9-5da545a54d5e",
+          "name": "Create embeddings",
+          "request": {
+            "name": "Create embeddings",
+            "description": {
+              "content": "Generate vector embeddings for one or more text, image, or code inputs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embeddings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d657ded-a82c-4e68-883d-d5e5e3898509",
+              "name": "Embeddings successfully generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"string\",\n  \"object\": \"list\",\n  \"usage\": {\n    \"total_tokens\": 8610,\n    \"prompt_tokens\": 5196\n  },\n  \"data\": [\n    {\n      \"object\": \"embedding\",\n      \"index\": 9597,\n      \"embedding\": [\n        5435.103465728314,\n        2167.7063141387443\n      ]\n    },\n    {\n      \"object\": \"embedding\",\n      \"index\": 1862,\n      \"embedding\": [\n        8885.023882107738,\n        6029.609386698323\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67e43b85-ccb3-4b0f-ba0a-242953ff49bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2184dcc7-329e-4276-bd65-411342e78298",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"jina-embeddings-v4\",\n  \"input\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task\": \"<string>\",\n  \"dimensions\": \"<integer>\",\n  \"normalized\": \"<boolean>\",\n  \"embedding_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.jina.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6d9880b1-750a-46c4-87d5-7194de0ea811",
+    "name": "Jina AI Batch Embeddings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.\n\nContact Support:\n Name: Jina AI",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "5943b75c-6f08-48b0-a9de-d6562b8e6aa9",
+      "name": "Reranker",
+      "description": {
+        "content": "Cross-encoder reranking",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "074878a3-8dc0-4949-be94-d4a3e3a6551f",
+          "name": "Rerank documents against a query",
+          "request": {
+            "name": "Rerank documents against a query",
+            "description": {
+              "content": "Score and reorder a set of candidate documents by relevance to the provided query, optionally returning the top N results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rerank"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\",\n  \"return_documents\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b570442-ca48-4063-87d2-618835778ee5",
+              "name": "Reranked results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rerank"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\",\n  \"return_documents\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"string\",\n  \"usage\": {\n    \"total_tokens\": 1778\n  },\n  \"results\": [\n    {\n      \"index\": 2000,\n      \"relevance_score\": 6359.282049765722,\n      \"document\": {\n        \"text\": \"string\"\n      }\n    },\n    {\n      \"index\": 4657,\n      \"relevance_score\": 5686.193470905148,\n      \"document\": {\n        \"text\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53ecd409-cfc4-4218-8d13-5cafbc3d8448",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rerank"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\",\n  \"return_documents\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8965b05a-b90f-41d8-a678-a9680bfe4041",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rerank"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\",\n  \"return_documents\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.jina.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4c995da8-9de1-4452-a7f9-05fa06462dc9",
+    "name": "Jina AI Embeddings Batch Reranker API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.\n\nContact Support:\n Name: Jina AI",
+      "type": "text/plain"
+    }
+  }
+}

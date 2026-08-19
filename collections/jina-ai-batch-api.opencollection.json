@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jina AI Embeddings Batch API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit batch embedding job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.jina.ai/v1/batch/embeddings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a batch job to embed a large set of inputs asynchronously."
+        },
+        {
+          "info": {
+            "name": "Get batch job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.jina.ai/v1/batch/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get batch job status"
+        },
+        {
+          "info": {
+            "name": "Cancel batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.jina.ai/v1/batch/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel batch job"
+        },
+        {
+          "info": {
+            "name": "Download batch job output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.jina.ai/v1/batch/:batch_id/output",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download batch job output"
+        },
+        {
+          "info": {
+            "name": "Retrieve batch job errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.jina.ai/v1/batch/:batch_id/errors",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve batch job errors"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
