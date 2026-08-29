@@ -4,6 +4,18 @@ description: >-
   Jina AI provides Search Foundation APIs for AI-powered applications, offering embeddings, reranking, and web reading
   capabilities. Their Reader API converts URLs to LLM-friendly input by simply adding r.jina.ai in front.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
