@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Jina AI Batch Embeddings API
+  title: Jina AI Embeddings API
   description: Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.
   version: '1.0'
   contact:
@@ -54,20 +54,6 @@ components:
           items:
             type: number
             format: float
-    EmbeddingResponse:
-      type: object
-      properties:
-        model:
-          type: string
-        object:
-          type: string
-          example: list
-        usage:
-          $ref: '#/components/schemas/Usage'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmbeddingObject'
     Usage:
       type: object
       properties:
@@ -118,6 +104,20 @@ components:
           - base64
           - binary
           - ubinary
+    EmbeddingResponse:
+      type: object
+      properties:
+        model:
+          type: string
+        object:
+          type: string
+          example: list
+        usage:
+          $ref: '#/components/schemas/Usage'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmbeddingObject'
   securitySchemes:
     BearerAuth:
       type: http

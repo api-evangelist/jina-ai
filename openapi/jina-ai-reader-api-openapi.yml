@@ -1,14 +1,20 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Jina AI Embeddings Batch Reader API
-  description: Generate high-quality multimodal embeddings for text, image, and code inputs using Jina AI's state-of-the-art embedding models. Supports synchronous embedding requests and batch jobs for large workloads.
+  title: Jina AI Reader API
+  description: The Reader API converts any URL or web search query into LLM-friendly output. Prefix any URL with r.jina.ai to extract clean markdown, or use s.jina.ai to perform a web search and read top results.
   version: '1.0'
   contact:
     name: Jina AI
     url: https://jina.ai
 servers:
-- url: https://api.jina.ai/v1
-  description: Jina AI production API
+- url: https://r.jina.ai
+  description: Reader API
+- url: https://s.jina.ai
+  description: Search API
+- url: https://eu.r.jina.ai
+  description: EU Reader API
+- url: https://eu.s.jina.ai
+  description: EU Search API
 security:
 - BearerAuth: []
 tags:
