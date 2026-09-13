@@ -1,0 +1,63 @@
+generated: '2026-09-11'
+method: probed
+source: https://mcp.jina.ai/sse
+status: published
+server:
+  name: jina-ai
+  transport: http
+  url: https://mcp.jina.ai/sse
+deployment:
+  mode: remote
+  endpoint: https://mcp.jina.ai/sse
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
+tools_count: 22
+tools:
+- name: show_api_key
+  description: ''
+- name: primer
+  description: ''
+- name: guess_datetime_url
+  description: ''
+- name: capture_screenshot_url
+  description: ''
+- name: read_url
+  description: ''
+- name: search_web
+  description: ''
+- name: search_web_deep
+  description: ''
+- name: expand_query
+  description: ''
+- name: search_arxiv
+  description: ''
+- name: search_ssrn
+  description: ''
+- name: search_jina_blog
+  description: ''
+- name: search_images
+  description: ''
+- name: parallel_search_web
+  description: ''
+- name: parallel_search_arxiv
+  description: ''
+- name: parallel_search_ssrn
+  description: ''
+- name: parallel_read_url
+  description: ''
+- name: classify_text
+  description: ''
+- name: sort_by_relevance
+  description: ''
+- name: deduplicate_strings
+  description: ''
+- name: deduplicate_images
+  description: ''
+- name: search_bibtex
+  description: ''
+- name: extract_pdf
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
