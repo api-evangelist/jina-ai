@@ -18,7 +18,8 @@
     "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "jina-ai-embeddings-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "jina-ai-reader-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "jina-ai-reranker-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+    "jina-ai-reranker-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "jina-ai-batch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
