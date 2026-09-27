@@ -100,23 +100,6 @@ paths:
           description: Batch errors stream
 components:
   schemas:
-    BatchEmbeddingRequest:
-      type: object
-      required:
-      - model
-      - input_file_id
-      properties:
-        model:
-          type: string
-        input_file_id:
-          type: string
-          description: Identifier of an uploaded input file
-        endpoint:
-          type: string
-          example: /v1/embeddings
-        completion_window:
-          type: string
-          example: 24h
     BatchJob:
       type: object
       properties:
@@ -144,6 +127,23 @@ components:
               type: integer
             failed:
               type: integer
+    BatchEmbeddingRequest:
+      type: object
+      required:
+      - model
+      - input_file_id
+      properties:
+        model:
+          type: string
+        input_file_id:
+          type: string
+          description: Identifier of an uploaded input file
+        endpoint:
+          type: string
+          example: /v1/embeddings
+        completion_window:
+          type: string
+          example: 24h
   securitySchemes:
     BearerAuth:
       type: http

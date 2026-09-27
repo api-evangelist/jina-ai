@@ -36,7 +36,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/jina-ai.pn
 tags:
   - Artificial Intelligence
   - Embeddings
-  - Machine-Learning
+  - Machine Learning
   - Reranking
   - Search
 tags_raw:
@@ -45,6 +45,7 @@ tags_raw:
   - Machine Learning
   - Reranking
   - Search
+  - Machine-Learning
 created: '2025-02-06'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml
