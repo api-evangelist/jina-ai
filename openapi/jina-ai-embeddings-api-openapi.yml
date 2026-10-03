@@ -41,27 +41,6 @@ paths:
           description: Rate limit exceeded
 components:
   schemas:
-    Usage:
-      type: object
-      properties:
-        total_tokens:
-          type: integer
-        prompt_tokens:
-          type: integer
-    EmbeddingResponse:
-      type: object
-      properties:
-        model:
-          type: string
-        object:
-          type: string
-          example: list
-        usage:
-          $ref: '#/components/schemas/Usage'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmbeddingObject'
     EmbeddingRequest:
       type: object
       required:
@@ -118,6 +97,27 @@ components:
           items:
             type: number
             format: float
+    Usage:
+      type: object
+      properties:
+        total_tokens:
+          type: integer
+        prompt_tokens:
+          type: integer
+    EmbeddingResponse:
+      type: object
+      properties:
+        model:
+          type: string
+        object:
+          type: string
+          example: list
+        usage:
+          $ref: '#/components/schemas/Usage'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmbeddingObject'
   securitySchemes:
     BearerAuth:
       type: http
