@@ -84,6 +84,13 @@ components:
           - base64
           - binary
           - ubinary
+    Usage:
+      type: object
+      properties:
+        total_tokens:
+          type: integer
+        prompt_tokens:
+          type: integer
     EmbeddingObject:
       type: object
       properties:
@@ -97,13 +104,6 @@ components:
           items:
             type: number
             format: float
-    Usage:
-      type: object
-      properties:
-        total_tokens:
-          type: integer
-        prompt_tokens:
-          type: integer
     EmbeddingResponse:
       type: object
       properties:

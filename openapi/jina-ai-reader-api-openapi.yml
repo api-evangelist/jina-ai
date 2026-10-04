@@ -106,6 +106,24 @@ paths:
                 type: string
 components:
   schemas:
+    ReaderRequest:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com
+        viewport:
+          type: object
+          properties:
+            width:
+              type: integer
+            height:
+              type: integer
+        injectPageScript:
+          type: string
     ReaderResponse:
       type: object
       properties:
@@ -129,24 +147,6 @@ components:
               properties:
                 tokens:
                   type: integer
-    ReaderRequest:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          example: https://example.com
-        viewport:
-          type: object
-          properties:
-            width:
-              type: integer
-            height:
-              type: integer
-        injectPageScript:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http
