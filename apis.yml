@@ -108,6 +108,9 @@ apis:
   - type: Documentation
     url: https://jina.ai/reader/
 common:
+  - type: CapabilityMap
+    url: capabilities/jina-ai-capability-edges.yml
+    name: Jina AI Business Capability Map
   - type: AgenticAccess
     url: agentic-access/jina-ai-agentic-access.yml
   - type: DomainSecurity
