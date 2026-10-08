@@ -108,6 +108,12 @@ apis:
   - type: Documentation
     url: https://jina.ai/reader/
 common:
+  - type: Plans
+    url: plans/jina-ai-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/jina-ai-rate-limits.yml
+  - type: FinOps
+    url: finops/jina-ai-finops.yml
   - url: https://jina.ai/news/
     type: Blog
   - type: CapabilityMap
