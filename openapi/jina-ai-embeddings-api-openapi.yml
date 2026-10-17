@@ -41,6 +41,19 @@ paths:
           description: Rate limit exceeded
 components:
   schemas:
+    EmbeddingObject:
+      type: object
+      properties:
+        object:
+          type: string
+          example: embedding
+        index:
+          type: integer
+        embedding:
+          type: array
+          items:
+            type: number
+            format: float
     EmbeddingRequest:
       type: object
       required:
@@ -91,19 +104,6 @@ components:
           type: integer
         prompt_tokens:
           type: integer
-    EmbeddingObject:
-      type: object
-      properties:
-        object:
-          type: string
-          example: embedding
-        index:
-          type: integer
-        embedding:
-          type: array
-          items:
-            type: number
-            format: float
     EmbeddingResponse:
       type: object
       properties:
