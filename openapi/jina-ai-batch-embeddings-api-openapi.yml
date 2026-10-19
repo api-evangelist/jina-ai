@@ -1,0 +1,827 @@
+openapi: 3.2.0
+info:
+  title: Jina AI Batch Embeddings API
+  description: 'Jina AI APIs on three hosts: Reader (`r.jina.ai`), Search (`s.jina.ai`) and the Search Foundation models (`api.jina.ai`). | I want to | Endpoint |
+
+    |---|---|
+
+    | Read a web page or PDF as LLM-friendly Markdown | GET r.jina.ai/{url} · POST r.jina.ai |
+
+    | Search the web and get the result pages as text | GET s.jina.ai/{q} · POST s.jina.ai/search |
+
+    | Embed text, images, audio, video or PDFs | POST /v1/embeddings |
+
+    | Rerank candidates against a query | POST /v1/rerank |
+
+    | Transcribe a document image (OCR) | POST /v1/chat/completions |
+
+    | Embed a large dataset asynchronously | POST /v1/batch/embeddings |
+
+    | See which models exist and what they cost | GET /v1/models |
+
+
+    **Authentication.** Send `Authorization: Bearer `. Get a key at https://jina.ai/?sui=apikey. Reader also answers without a key, at a lower rate limit; Search needs one. **EU.** `eu.r.jina.ai` and `eu.s.jina.ai` keep all processing inside the EU. **For LLMs.** `curl docs.jina.ai` returns the meta-prompt, a plain-text guide to these APIs written for coding agents. This reference as Markdown: `curl docs.jina.ai/api.md`. **Rate limits.** r.jina.ai 500 RPM (5k premium), s.jina.ai 100 RPM (1k premium). _Merged from https://api.jina.ai/openapi.json, https://r.jina.ai/openapi.json, https://s.jina.ai/openapi.json. Plain text: https://docs.jina.ai/api.md. Spec: https://docs.jina.ai/openapi.json._
+
+
+    Best-in-class embeddings, rerankers and document models for multilingual and multimodal search. ## Capabilities
+
+
+    - **Text embeddings** — dense vectors for semantic search, similarity, clustering and classification, in 100+ languages. - **Multimodal embeddings** — images, video, audio and PDFs embedded into the same space as text, so a query in one modality retrieves another. - **Reranking** — score a query against a candidate set and reorder it; more accurate than embedding similarity, and the usual second stage after it. - **Document OCR** — read a page image and return its content as text or markdown, with tables and layout preserved, over the OpenAI chat completions schema. - **Batch embeddings** — the same embedding models over JSONL, asynchronously, for workloads too large to send inline. ## Authentication
+
+
+    Every endpoint except `GET /v1/models` requires a key:
+
+
+    ```
+
+    Authorization: Bearer jina_YOUR_API_KEY
+
+    ```
+
+
+    Get one at jina.ai/api-dashboard/key-manager. ## Rate limits
+
+
+    Requests per minute and tokens per minute. Anything over a limit answers `429`. | Endpoint | Free | Paid | Premium |
+
+    |---|---|---|---|
+
+    | `/v1/embeddings` | 500 RPM · 1M TPM | 500 RPM · 10M TPM | 5,000 RPM · 100M TPM |
+
+    | `/v1/rerank` | 500 RPM · 1M TPM | 500 RPM · 10M TPM | 5,000 RPM · 100M TPM |
+
+    | `/v1/chat/completions` | 100 RPM · 500K TPM | 100 RPM · 5M TPM | 1,000 RPM · 50M TPM |
+
+
+    ## Errors
+
+
+    Failures carry a `detail`, a `code` from the table below and the `request_id` to quote in a support request. `/v1/chat/completions` is the exception: it answers in OpenAI''s error envelope, with the same code inside it.'
+  version: 2026.10.13.1624
+servers:
+- url: https://api.jina.ai
+tags:
+- name: Batch Embeddings
+  description: 'Asynchronous embedding for large workloads: up to 50,000 inputs from a GCS file URL, or 10,000 inline.
+
+
+    Submit with `POST /v1/batch/embeddings`, poll `GET /v1/batch/{batch_id}` until the status is `completed`, then fetch `GET /v1/batch/{batch_id}/output`. Input is OpenAI-compatible JSONL with `custom_id` and `body.input`. Output files expire after 24 hours, and a webhook can be called on completion.'
+paths:
+  /v1/batch/embeddings:
+    post:
+      tags:
+      - Batch Embeddings
+      summary: Create a batch embedding job
+      description: Submit a batch of texts for asynchronous embedding processing.
+      operationId: create_batch_job_v1_batch_embeddings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchEmbeddingRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchStatus'
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - HTTPBearer: []
+  /v1/batch/{batch_id}:
+    get:
+      tags:
+      - Batch Embeddings
+      summary: Get batch job status
+      description: Retrieve the status of a batch embedding job.
+      operationId: get_batch_status_v1_batch__batch_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Batch Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchStatus'
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Batch Embeddings
+      summary: Cancel a batch job
+      description: Cancel a pending or processing batch job.
+      operationId: cancel_batch_job_v1_batch__batch_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Batch Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchStatus'
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/batches:
+    get:
+      tags:
+      - Batch Embeddings
+      summary: List batch jobs
+      description: List recent batch jobs for the authenticated user.
+      operationId: list_batch_jobs_v1_batches_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BatchStatus'
+                title: Response List Batch Jobs V1 Batches Get
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/batch/{batch_id}/output:
+    get:
+      tags:
+      - Batch Embeddings
+      summary: Download batch job output
+      description: Stream the output JSONL file for a completed batch job.
+      operationId: download_batch_output_v1_batch__batch_id__output_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Batch Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/batch/{batch_id}/errors:
+    get:
+      tags:
+      - Batch Embeddings
+      summary: Download batch job error file
+      description: Stream the error JSONL file for a completed batch job.
+      operationId: download_batch_errors_v1_batch__batch_id__errors_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Batch Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: 'Bad Request: `INPUT_INVALID_LABELS`, `INPUT_LABEL_LIMIT_EXCEEDED`, `INPUT_MODEL_NOT_FOUND`, `INPUT_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 'Unauthorized: `AUTH_INVALID_API_KEY`, `AUTH_INVALID_FORMAT`, `AUTH_MISSING_API_KEY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 'Forbidden: `AUTHZ_INSUFFICIENT_BALANCE`, `AUTHZ_RESOURCE_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 'Not Found: `RESOURCE_NOT_FOUND`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'Conflict: `CONFLICT_RESOURCE_BUSY`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request body failed schema validation. `errors` names each field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 'Too Many Requests: `RATE_CONCURRENCY_LIMIT_EXCEEDED`, `RATE_IP_LIMIT_EXCEEDED`, `RATE_REQUEST_LIMIT_EXCEEDED`, `RATE_TOKEN_LIMIT_EXCEEDED`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal Server Error: `INTERNAL_ERROR`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: 'Service Unavailable: `SERVICE_UNAVAILABLE`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: 'Gateway Timeout: `SERVICE_TIMEOUT`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    BatchStats:
+      properties:
+        total:
+          type: integer
+          title: Total
+          description: Total number of input lines.
+        completed:
+          type: integer
+          title: Completed
+          description: Number of successfully processed lines.
+          default: 0
+        failed:
+          type: integer
+          title: Failed
+          description: Number of failed lines.
+          default: 0
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total tokens consumed across all processed lines.
+          default: 0
+      type: object
+      required:
+      - total
+      title: BatchStats
+      description: Statistics for a batch job.
+    BatchEmbeddingRequest:
+      properties:
+        model:
+          type: string
+          enum:
+          - jina-embeddings-v5-text-nano
+          - jina-embeddings-v5-text-small
+          title: Model
+          description: The embedding model to use for batch processing.
+        input_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Url
+          description: URL to input JSONL file (GCS, S3, or HTTP). Either input_url or input must be provided.
+        input:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Input
+          description: Inline JSONL lines for small batches. Either input_url or input must be provided.
+        task:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Task
+          description: 'Task optimization: retrieval, text-matching, clustering, or classification.'
+          default: text-matching
+        dimensions:
+          anyOf:
+          - type: integer
+            maximum: 1024
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Dimensions
+          description: Number of dimensions for output embeddings (1-1024).
+        normalized:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Normalized
+          description: If true (default), embeddings are L2-normalized to unit length.
+          default: true
+        webhook_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Webhook Url
+          description: URL to POST notification when job completes.
+      type: object
+      required:
+      - model
+      title: BatchEmbeddingRequest
+      description: Request to create a batch embedding job.
+      examples:
+      - dimensions: 512
+        input_url: gs://my-bucket/inputs.jsonl
+        model: jina-embeddings-v5-text-small
+        task: retrieval
+      - input:
+        - body:
+            input: Hello world
+          custom_id: req-1
+        - body:
+            input: Batch embeddings
+          custom_id: req-2
+        model: jina-embeddings-v5-text-nano
+        task: text-matching
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: Human-readable error message.
+          examples:
+          - Invalid API key. Verify your API key at https://jina.ai/api-dashboard/key-manager or generate a new one.
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+          description: Machine-readable error code, for programmatic handling.
+          examples:
+          - AUTH_INVALID_API_KEY
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+          description: Identifier for this request, quote it in support requests.
+          examples:
+          - 03f58cd9da22fabf
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FieldError'
+            type: array
+          - type: 'null'
+          title: Errors
+          description: Per-field detail. Present on 422 only; `detail` summarises it.
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+      description: Failure shape for every endpoint except `/v1/chat/completions`.
+    FieldError:
+      properties:
+        field:
+          type: string
+          title: Field
+          description: Path to the field, e.g. `body -> input -> 0`.
+        message:
+          type: string
+          title: Message
+          description: Why the value was rejected.
+        type:
+          type: string
+          title: Type
+          description: Validator that rejected it, e.g. `string_type`.
+        input:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Input
+          description: The rejected value. Long strings are truncated and containers dropped.
+      type: object
+      required:
+      - field
+      - message
+      - type
+      title: FieldError
+      description: One rejected field, as carried in a 422.
+    BatchStatus:
+      properties:
+        batch_id:
+          type: string
+          title: Batch Id
+          description: Unique identifier for the batch job.
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          - expired
+          - cancelled
+          title: Status
+          description: Current status of the batch job.
+        model:
+          type: string
+          title: Model
+          description: The model used for embedding.
+        created_at:
+          type: string
+          title: Created At
+          description: ISO 8601 timestamp when job was created.
+        completed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completed At
+          description: ISO 8601 timestamp when job completed (if finished).
+        expires_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Expires At
+          description: ISO 8601 timestamp when output URL expires (created_at + 24h).
+        output_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Output Url
+          description: Signed URL to download output JSONL (24h expiry).
+        error_file_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error File Url
+          description: URL to download error JSONL for failed lines.
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: Error message if job failed.
+        stats:
+          anyOf:
+          - $ref: '#/components/schemas/BatchStats'
+          - type: 'null'
+          description: Processing statistics.
+      type: object
+      required:
+      - batch_id
+      - status
+      - model
+      - created_at
+      title: BatchStatus
+      description: Status of a batch embedding job.
+      examples:
+      - batch_id: batch_abc123
+        completed_at: '2024-01-15T10:35:00Z'
+        created_at: '2024-01-15T10:30:00Z'
+        expires_at: '2024-01-16T10:30:00Z'
+        model: jina-embeddings-v5-text-small
+        output_url: https://storage.googleapis.com/...
+        stats:
+          completed: 998
+          failed: 2
+          total: 1000
+        status: completed
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-tagGroups:
+- name: Reader API (r.jina.ai)
+  tags:
+  - Reader
+- name: Search API (s.jina.ai)
+  tags:
+  - Search
+- name: Search Foundation API (api.jina.ai)
+  tags:
+  - Model List
+  - Search Foundation Models
+  - Generative Models
+  - Batch Embeddings

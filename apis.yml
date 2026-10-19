@@ -51,34 +51,6 @@ modified: '2026-10-06'
 url: https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-- aid: jina-ai:jina-ai-batch-api
-  name: Jina AI Batch API
-  description: Asynchronous batch embedding jobs
-  humanURL: https://jina.ai/embeddings/
-  baseURL: https://api.jina.ai/v1
-  tags:
-  - Batch
-  properties:
-  - type: OpenAPI
-    url: openapi/jina-ai-batch-api-openapi.yml
-  - type: Documentation
-    url: https://docs.jina.ai/
-  - type: Documentation
-    url: https://jina.ai/reader/
-- aid: jina-ai:jina-ai-embeddings-api
-  name: Jina AI Embeddings API
-  description: Synchronous embedding generation
-  humanURL: https://jina.ai/embeddings/
-  baseURL: https://api.jina.ai/v1
-  tags:
-  - Embeddings
-  properties:
-  - type: OpenAPI
-    url: openapi/jina-ai-embeddings-api-openapi.yml
-  - type: Documentation
-    url: https://docs.jina.ai/
-  - type: Documentation
-    url: https://jina.ai/reader/
 - aid: jina-ai:jina-ai-reader-api
   name: Jina AI Reader API
   description: URL-to-markdown extraction
@@ -93,16 +65,99 @@ apis:
     url: https://docs.jina.ai/
   - type: Documentation
     url: https://jina.ai/reader/
-- aid: jina-ai:jina-ai-reranker-api
-  name: Jina AI Reranker API
-  description: Cross-encoder reranking
+- aid: jina-ai:jina-ai-batch-embeddings-api
+  name: Jina AI Batch Embeddings API
+  description: >-
+    Asynchronous embedding for large workloads: up to 50,000 inputs from a GCS file URL, or 10,000 inline.
+
+
+    Submit with `POST /v1/batch/embeddings`, poll `GET /v1/batch/{batch_id}` until the status is `completed`,
+    then fetch `GET /v1/batch/{batch_id}/output`. Input is OpenAI-compatible JSONL with `custom_id` and
+    `body.input`. Output files expire after 24 hours, and a webhook can be called on completion.
   humanURL: https://jina.ai/embeddings/
   baseURL: https://api.jina.ai/v1
   tags:
-  - Reranker
+  - Batch Embeddings
   properties:
   - type: OpenAPI
-    url: openapi/jina-ai-reranker-api-openapi.yml
+    url: openapi/jina-ai-batch-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-generative-models-api
+  name: Jina AI Generative Models API
+  description: >-
+    Document transcription over the OpenAI chat completions schema. Point any OpenAI-compatible client
+    at the server URL above with `/v1` appended, set `model`, and send a page image; the response is the
+    page as text or markdown, tables and layout preserved.
+
+
+    `stream: true` returns server-sent events. `response_format` with a `json_schema` constrains the output
+    to that schema instead of prose. Parameters outside the supported set are accepted and ignored rather
+    than rejected, so an SDK-generated payload always works.
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Generative Models
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-generative-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-model-list-api
+  name: Jina AI Model List API
+  description: >-
+    Every model this API serves, in OpenRouter-compatible form: identifiers, input and output modalities,
+    context lengths and prices. Read it before hardcoding a model name — the catalogue moves.
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Model List
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-model-list-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-search-api
+  name: Jina AI Search API
+  description: Search the web and get the result pages back in an LLM-friendly format.
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jina.ai/
+  - type: Documentation
+    url: https://jina.ai/reader/
+- aid: jina-ai:jina-ai-search-foundation-models-api
+  name: Jina AI Search Foundation Models API
+  description: >-
+    **Embeddings** turn text, images, audio, video and PDFs into dense vectors for semantic search, RAG,
+    clustering and classification. Task-specific variants (`retrieval.query`, `retrieval.passage`, `text-matching`,
+    `clustering`, `classification`) are selected per request rather than per model, and `dimensions` truncates
+    the output where a model supports it.
+
+
+    **Reranking** scores a query against a candidate set and returns it reordered, which is more accurate
+    than embedding similarity and slower — the usual shape is embeddings to retrieve, reranking to refine.
+
+
+    Each endpoint's `model` field lists the models it accepts.
+  humanURL: https://jina.ai/embeddings/
+  baseURL: https://api.jina.ai/v1
+  tags:
+  - Search Foundation Models
+  properties:
+  - type: OpenAPI
+    url: openapi/jina-ai-search-foundation-models-api-openapi.yml
   - type: Documentation
     url: https://docs.jina.ai/
   - type: Documentation
