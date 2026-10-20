@@ -13,10 +13,8 @@ deployment:
   probe: live
   checked: '2026-09-11'
   source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
-tools_count: 22
+tools_count: 12
 tools:
-- name: show_api_key
-  description: ''
 - name: primer
   description: Current time, user location and network environment for the session. Use before answering
     anything time- or location-dependent.
@@ -30,10 +28,6 @@ tools:
     it instead of the whole page - far cheaper than reading the full body into context.
 - name: search_web
   description: Search the web. Returns titles, URLs and search-engine snippets.
-- name: search_web_deep
-  description: ''
-- name: expand_query
-  description: ''
 - name: search_arxiv
   description: Search arXiv preprints (physics, maths, CS, quantitative biology and finance).
 - name: search_ssrn
@@ -43,24 +37,10 @@ tools:
     technical write-ups.'
 - name: search_images
   description: Search the web for images. Returns base64 JPEGs by default.
-- name: parallel_search_web
-  description: ''
-- name: parallel_search_arxiv
-  description: ''
-- name: parallel_search_ssrn
-  description: ''
-- name: parallel_read_url
-  description: ''
-- name: classify_text
-  description: ''
 - name: sort_by_relevance
   description: Rerank documents by relevance to a query, using Jina Reranker.
 - name: deduplicate_strings
   description: Select the top-k semantically distinct strings from a list, dropping near-duplicates.
-- name: deduplicate_images
-  description: ''
-- name: search_bibtex
-  description: ''
 - name: extract_pdf
   description: Extract figures, tables and equations from a PDF as images, by arXiv id or URL.
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
