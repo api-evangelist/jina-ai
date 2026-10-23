@@ -6447,3 +6447,9 @@ x-tagGroups:
   - Search Foundation Models
   - Generative Models
   - Batch Embeddings
+x-provenance:
+  method: harvested
+  publisher: Jina AI
+  source: https://docs.jina.ai/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
