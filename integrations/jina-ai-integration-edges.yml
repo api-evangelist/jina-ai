@@ -16,6 +16,7 @@ checked:
 - https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/
 - https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
+- hugging-face/integrations/hugging-face-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -245,6 +246,42 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-20'
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/jinaai
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - jinaai/documentation-images
+  - jinaai/code_exercises
+  - jinaai/github-readme-retrieval-multilingual_beir
+  - jinaai/wikimedia-commons-documents-ml_beir
+  - jinaai/airbnb-synthetic-retrieval_beir
+  - jinaai/pplx_jina_v2_en
+  - jinaai/tweet-stock-synthetic-retrieval_beir
+  - jinaai/shanghai_master_plan_beir
+  - jinaai/jina-embeddings-v3
+  - jinaai/jina-reranker-v2-base-multilingual
+  - jinaai/jina-embeddings-v2-small-en
+  - jinaai/jina-embeddings-v5-omni-small
+  - jinaai/jina-reranker-v3
+  - jinaai/jina-bert-flash-implementation
+  - jinaai/jina-embeddings-v2-base-en
+  - jinaai/jina-embeddings-v3-hf
+  - jinaai/jina-embeddings-v4-retrieval-visual
+  - jinaai/jina-reranker-v3-5-demo
+  listing_count: 3
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub datasets
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 source:
 - https://github.com/cncf/landscape
 - https://github.com/cncf/k8s-conformance
