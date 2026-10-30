@@ -1,4 +1,4 @@
-# Jina AI (jina-ai)
+# Jina AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,102 +66,134 @@
 
 Jina AI provides Search Foundation APIs for AI-powered applications, offering embeddings, reranking, and web reading capabilities. Their Reader API converts URLs to LLM-friendly input by simply adding r.jina.ai in front.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/jina-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Embeddings · Machine Learning · Reranking · Search
 
-## Scope
+## Jina AI on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Jina AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/jina-ai/](https://apis.io/providers/jina-ai/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- AI
-- Embeddings
-- Machine Learning
-- Reranking
-- Search
+- [Jina AI Batch API](https://apis.io/apis/jina-ai/jina-ai-batch-api/) — Asynchronous batch embedding jobs
+- [Jina AI Embeddings API](https://apis.io/apis/jina-ai/jina-ai-embeddings-api/) — Synchronous embedding generation
+- [Jina AI Reader API](https://apis.io/apis/jina-ai/jina-ai-reader-api/) — URL-to-markdown extraction
+- [Jina AI Reranker API](https://apis.io/apis/jina-ai/jina-ai-reranker-api/) — Cross-encoder reranking
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-06
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (2)
 
-### Jina AI Embeddings API
+Model Context Protocol servers that expose the API to agents.
 
-Generate high-quality embeddings from text, images, or code using Jina AI's state-of-the-art embedding models.
+- [jina-ai](https://apis.io/servers/jina-ai/jina-ai/)
+- [MCP Server](https://apis.io/servers/jina-ai/mcp-server/)
 
-- **Human URL:** [https://jina.ai/embeddings/](https://jina.ai/embeddings/)
-- **Base URL:** `https://api.jina.ai/v1`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Embeddings
-- Multimodal
-- Text
+- [Jina Ai Agentic Access](https://apis.io/agentic-access/jina-ai/jina-ai-agentic-access/)
 
-#### Properties
+#### Collections (7)
 
-- [Documentation](https://docs.jina.ai/)
-- [OpenAPI](openapi/jina-ai-embeddings-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/jina-ai-embeddings.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/jina-ai-embeddings.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Jina AI Reader API
+- [Jina AI Embeddings Batch API](https://apis.io/collections/jina-ai/open-jina-ai-batch-api/)
+- [Jina AI Embeddings API](https://apis.io/collections/jina-ai/open-jina-ai-embeddings/)
+- [Jina AI Batch Embeddings API](https://apis.io/collections/jina-ai/open-jina-ai-embeddings-api/)
+- [Jina AI Reader API](https://apis.io/collections/jina-ai/open-jina-ai-reader/)
+- [Jina AI Embeddings Batch Reader API](https://apis.io/collections/jina-ai/open-jina-ai-reader-api/)
+- [Jina AI Reranker API](https://apis.io/collections/jina-ai/open-jina-ai-reranker/)
+- [Jina AI Embeddings Batch Reranker API](https://apis.io/collections/jina-ai/open-jina-ai-reranker-api/)
 
-Convert a URL to LLM-friendly input by simply adding r.jina.ai in front. Also supports search-based reading via s.jina.ai.
+#### Security (2)
 
-- **Human URL:** [https://jina.ai/reader/](https://jina.ai/reader/)
-- **Base URL:** `https://r.jina.ai`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Jina Ai Authentication](https://apis.io/security/jina-ai/jina-ai-authentication/)
+- [Jina Ai Domain Security](https://apis.io/security/jina-ai/jina-ai-domain-security/)
 
-- Content Extraction
-- LLM
-- Web Reading
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://jina.ai/reader/)
-- [OpenAPI](openapi/jina-ai-reader-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/jina-ai-reader.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/jina-ai-reader.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Jina Ai Plans Pricing](https://apis.io/plans/jina-ai/jina-ai-plans-pricing/)
 
-### Jina AI Reranker API
+#### Rate limits (1)
 
-Re-rank search results by relevance using Jina AI's reranker models to improve the quality of retrieved documents.
+Published request limits.
 
-- **Human URL:** [https://jina.ai/reranker/](https://jina.ai/reranker/)
-- **Base URL:** `https://api.jina.ai/v1`
+- [Jina Ai Rate Limits](https://apis.io/rate-limits/jina-ai/jina-ai-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- Relevance
-- Reranking
-- Search
+What the API costs to run, by operation.
 
-#### Properties
+- [Jina Ai Finops](https://apis.io/finops/jina-ai/jina-ai-finops/)
 
-- [Documentation](https://docs.jina.ai/)
-- [OpenAPI](openapi/jina-ai-reranker-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/jina-ai-reranker.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/jina-ai-reranker.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [LinkedIn](https://www.linkedin.com/company/jinaai)
 - [Website](https://jina.ai)
-- [Portal](https://jina.ai/api-dashboard/)
 - [Documentation](https://docs.jina.ai/)
-- [Getting Started](https://docs.jina.ai/)
-- [GitHub Organization](https://github.com/jina-ai)
-- [Sign Up](https://jina.ai/api-dashboard/)
-- [M C P Server](https://github.com/jina-ai/MCP)
-- [L L Ms Txt](https://docs.jina.ai/llms.txt)
+- [Getting started](https://docs.jina.ai/)
+- [Blog](https://jina.ai/news/)
+- [GitHub](https://github.com/jina-ai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.5** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 50.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 21.1 |
+
+**Agent readiness 29.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/jina-ai/](https://apis.io/providers/jina-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Jina AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/jina-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
